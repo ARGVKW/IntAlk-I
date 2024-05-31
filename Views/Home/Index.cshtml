@@ -1,8 +1,39 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Kezdőlap";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Internetes Alkalmazásfejlesztés I.</h1>
+    <form action="" method="post" enctype="application/x-www-form-urlencoded">
+        <fieldset class="container-sm w-50 mx-auto">
+            <legend>Számológép</legend>
+            <div class="row my-2">
+                <label class="col-3 text-end" for="szam1">Első szám:</label>
+                <div class="col-6"><input class="form-control fs-4 fw-bolder text-center" id="szam1" name="szam1" type="number" /></div>
+                <div class="col-3 text-danger"></div>
+            </div>
+            <div class="row my-2">
+                <div class="offset-3">
+
+                </div>
+            </div>
+            <div class="row my-2">
+                <label class="col-3 text-end" for="szam2">Második szám:</label>
+                <div class="col-6"><input class="form-control fs-4 fw-bolder text-center" id="szam2" name="szam2" type="number" /></div>
+                <div class="col-3 text-danger"></div>
+            </div>
+            <div class="row my-2">
+                <div class="col-6 offset-3 text-start d-flex">
+                    <select class="form-select fw-bolder w-auto text-center me-2" id="szam2" name="muvelet" title="Művelet">
+                        <option>+</option>
+                        <option>-</option>
+                        <option>/</option>
+                        <option value="*">×</option>
+                    </select>
+                    <button type="submit" class="btn btn-outline-primary fw-bold me-2" title="Kiszámol">=</button>
+                    <output id="output" class="h2 fw-bolder m-0 p-0 lh-1 align-middle">0</output>
+                </div>
+            </div>
+        </fieldset>
+    </form>
 </div>
