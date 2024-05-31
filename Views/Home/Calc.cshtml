@@ -1,18 +1,15 @@
-﻿@model FormViewModel
-@{
+﻿@{
     ViewData["Title"] = "Kezdőlap";
 }
 
 <div class="text-center">
     <h1 class="display-4">Internetes Alkalmazásfejlesztés I.</h1>
-    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Index">
+    <form action="/Privacy" method="post" enctype="application/x-www-form-urlencoded">
         <fieldset class="container-sm w-50 mx-auto">
             <legend>Számológép</legend>
-            <div class="row my-2 align-items-center">
+            <div class="row my-2">
                 <label class="col-3 text-end" for="szam1">Első szám:</label>
-                <div class="col-6">
-                    @Html.TextBox("szam1", Model?.FormValues.Szam1, null, new { type = "number", @class = "form-control fs-4 fw-bolder text-center" })
-                </div>
+                <div class="col-6"><input class="form-control fs-4 fw-bolder text-center" id="szam1" name="szam1" type="number" /></div>
                 <div class="col-3 text-danger"></div>
             </div>
             <div class="row my-2">
@@ -20,25 +17,21 @@
 
                 </div>
             </div>
-            <div class="row my-2 align-items-center">
+            <div class="row my-2">
                 <label class="col-3 text-end" for="szam2">Második szám:</label>
-                <div class="col-6">
-                    @Html.TextBox("szam2", Model?.FormValues.Szam2, null, new { type = "number", @class = "form-control fs-4 fw-bolder text-center" })
-                </div>
+                <div class="col-6"><input class="form-control fs-4 fw-bolder text-center" id="szam2" name="szam2" type="number" /></div>
                 <div class="col-3 text-danger"></div>
             </div>
             <div class="row my-2">
                 <div class="col-6 offset-3 text-start d-flex">
-                    <a href="/" class="btn btn-outline-danger fw-bold me-2" title="Töröl">C</a>
                     <select class="form-select fw-bolder w-auto text-center me-2" id="szam2" name="muvelet" title="Művelet">
                         <option>+</option>
                         <option>-</option>
                         <option>/</option>
                         <option value="*">×</option>
-                        <option value="%">mod</option>
                     </select>
                     <button type="submit" class="btn btn-outline-primary fw-bold me-2" title="Kiszámol">=</button>
-                    <output id="output" class="h2 fw-bolder m-0 p-0 lh-1 align-middle">@Model?.Eredmeny</output>
+                    <output id="output" class="h2 fw-bolder m-0 p-0 lh-1 align-middle">0</output>
                 </div>
             </div>
         </fieldset>
