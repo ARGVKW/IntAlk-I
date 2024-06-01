@@ -1,42 +1,43 @@
 ﻿@model FormViewModel
+
 @{
     ViewData["Title"] = "Kezdőlap";
 }
 
 <div class="text-center">
     <h1 class="display-4">Internetes Alkalmazásfejlesztés I.</h1>
-    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Index">
+    <form asp-controller="Home" asp-action="Index" method="post" enctype="multipart/form-data">
         <fieldset class="container-sm w-50 mx-auto">
             <legend>Számológép</legend>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row my-2 align-items-center">
-                <label class="col-3 text-end" for="szam1">Első szám:</label>
+                <label asp-for="FormValues.Szam1" class="control-label col-3 text-end"></label>
                 <div class="col-6">
-                    @Html.TextBox("szam1", Model?.FormValues.Szam1, null, new { type = "number", @class = "form-control fs-4 fw-bolder text-center" })
+                    <input asp-for="FormValues.Szam1" type="number" class="form-control fs-4 fw-bolder text-center" />
                 </div>
-                <div class="col-3 text-danger"></div>
-            </div>
-            <div class="row my-2">
-                <div class="offset-3">
-
-                </div>
+                <span asp-validation-for="FormValues.Szam1" class="col-3 text-danger small"></span>
             </div>
             <div class="row my-2 align-items-center">
-                <label class="col-3 text-end" for="szam2">Második szám:</label>
+                <label asp-for="FormValues.Szam2" class="control-label col-3 text-end"></label>
                 <div class="col-6">
-                    @Html.TextBox("szam2", Model?.FormValues.Szam2, null, new { type = "number", @class = "form-control fs-4 fw-bolder text-center" })
+                    <input asp-for="FormValues.Szam2" type="number" class="form-control fs-4 fw-bolder text-center" />
                 </div>
-                <div class="col-3 text-danger"></div>
+                <span asp-validation-for="FormValues.Szam2" class="col-3 text-danger small"></span>
             </div>
             <div class="row my-2">
                 <div class="col-6 offset-3 text-start d-flex">
-                    <a href="/" class="btn btn-outline-danger fw-bold me-2" title="Töröl">C</a>
-                    <select class="form-select fw-bolder w-auto text-center me-2" id="szam2" name="muvelet" title="Művelet">
-                        <option>+</option>
-                        <option>-</option>
-                        <option>/</option>
-                        <option value="*">×</option>
-                        <option value="%">mod</option>
-                    </select>
+                    <a asp-action="Index" class="btn btn-outline-danger fw-bold me-2" title="Töröl">C</a>
+                    @Html.DropDownListFor(
+                        m => m.FormValues.Muvelet, 
+                        new List<SelectListItem>{
+                            new SelectListItem("+", "+"),
+                            new SelectListItem("-", "-"),
+                            new SelectListItem("÷", "/"),
+                            new SelectListItem("×", "*"),
+                            new SelectListItem("mod", "%"),
+                        },
+                        new { @class = "form-select fw-bolder w-auto text-center me-2", title = "Művelet" }
+                    )
                     <button type="submit" class="btn btn-outline-primary fw-bold me-2" title="Kiszámol">=</button>
                     <output id="output" class="h2 fw-bolder m-0 p-0 lh-1 align-middle">@Model?.Eredmeny</output>
                 </div>

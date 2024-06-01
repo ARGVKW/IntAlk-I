@@ -1,5 +1,6 @@
 ﻿using IntAlk_I.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Primitives;
 using System.Diagnostics;
 
@@ -20,34 +21,34 @@ namespace IntAlk_I.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(double szam1, double szam2, string muvelet)
+        public IActionResult Index([Bind("Szam1,Szam2,Muvelet")] FormValues formValues)
         {
+            double Szam1 = formValues.Szam1;
+            double Szam2 = formValues.Szam2;
+            string Muvelet = formValues.Muvelet;
+            string Eredmeny = "";
+
+            switch (Muvelet)
+            {
+                case "+": Eredmeny = Osszead(Szam1, Szam2).ToString(); break;
+                case "-": Eredmeny = Kivon(Szam1, Szam2).ToString(); break;
+                case "*": Eredmeny = Szoroz(Szam1, Szam2).ToString(); break;
+                case "/": Eredmeny = Oszt(Szam1, Szam2).ToString(); break;
+                case "%": Eredmeny = Modulo(Szam1, Szam2).ToString(); break;
+            }
+
+            FormViewModel model = new FormViewModel
+            {
+                FormValues = formValues,
+                Eredmeny = Eredmeny
+            };
+
             if (ModelState.IsValid)
             {
-
+                return View(model);
             }
 
-            string result = "";
-            switch (muvelet)
-            {
-                case "+": result = Osszead(szam1, szam2).ToString(); break;
-                case "-": result = Kivon(szam1, szam2).ToString(); break;
-                case "*": result = Szoroz(szam1, szam2).ToString(); break;
-                case "/": result = Oszt(szam1, szam2).ToString(); break;
-                case "%": result = Modulo(szam1, szam2).ToString(); break;
-            }
-
-            FormViewModel model = new FormViewModel { 
-                FormValues = new FormValues
-                {
-                    Szam1 = szam1,
-                    Szam2 = szam2,
-                    Muvelet = muvelet
-                },
-                Eredmeny = result
-            };
-            
-            return View(model);
+            return View();
         }
 
         private double Osszead(double szam1, double szam2)
@@ -68,29 +69,20 @@ namespace IntAlk_I.Controllers
 
         private double Oszt(double szam1, double szam2)
         {
+            if (szam2 == 0)
+            {
+                ModelState.AddModelError(string.Empty, "Hiba! Nullával osztás.");
+            }
             return szam1 / szam2;
         }
 
         private double Modulo(double szam1, double szam2)
         {
-            return szam1 % szam2;
-        }
-
-        [HttpPost]
-        [ActionName("Calc")]
-        public IActionResult Calc()
-        {
-            if (ModelState.IsValid)
+            if (szam2 == 0)
             {
-
+                ModelState.AddModelError(string.Empty, "Hiba! Modulo osztója nem lehet 0.");
             }
-            return RedirectToAction("Index");
-            //return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            return szam1 % szam2;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

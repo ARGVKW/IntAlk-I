@@ -30,5 +30,7 @@ Műveletvégzés (szerveroldalon, alul látszanak az elküldött űrlap adatok)
 
 ![](/wwwroot/pic/intalk_screenshot_3.png)
 
-Validáció (még készül...)
+Validáció
+
+![](/wwwroot/pic/intalk_screenshot_4.png)
 
